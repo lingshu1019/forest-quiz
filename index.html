@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="zh-Hant-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>森林偽裝高手測驗</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow field-notebook column; each screen is a page of the notebook, the result is an observation record card */
+:root{
+  --bg:#EEF2EA;           /* moss-tinted paper */
+  --paper:#FBFCF8;
+  --ink:#1E2B24;
+  --ink-soft:#4E5E55;
+  --moss:#2F5D46;
+  --moss-deep:#1F4234;
+  --leaf:#D9E6D2;
+  --amber:#A8641A;
+  --amber-soft:#F3E3CB;
+  --line:#C9D6C2;
+  --shadow:0 1px 0 rgba(30,43,36,.06),0 10px 30px -18px rgba(30,43,36,.35);
+  --display:"LXGW WenKai TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121A16;--paper:#1A241F;--ink:#E5ECE6;--ink-soft:#A9B8AE;--moss:#8CC4A2;--moss-deep:#6FAE88;--leaf:#24342B;--amber:#E2A85C;--amber-soft:#3A2C1A;--line:#2E3F35;--shadow:0 10px 30px -18px rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121A16;--paper:#1A241F;--ink:#E5ECE6;--ink-soft:#A9B8AE;--moss:#8CC4A2;--moss-deep:#6FAE88;--leaf:#24342B;--amber:#E2A85C;--amber-soft:#3A2C1A;--line:#2E3F35;--shadow:0 10px 30px -18px rgba(0,0,0,.7);color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7}
+.wrap{max-width:560px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.page{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:28px 24px;display:flex;flex-direction:column;gap:18px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--amber);text-transform:uppercase}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;line-height:1.3}
+h1{font-size:clamp(30px,8vw,40px);color:var(--moss-deep)}
+h2{font-size:clamp(21px,5.4vw,25px)}
+#qt{font-size:clamp(18px,4.6vw,21px);line-height:1.65;font-weight:400}
+p{margin:0}
+.lead{color:var(--ink-soft)}
+.btn{line-height:1.25;appearance:none;border:0;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;padding:13px 22px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--moss);color:var(--paper)}
+.btn-primary:hover{background:var(--moss-deep)}
+.btn-ghost{background:transparent;color:var(--moss);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--moss)}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+
+/* intro */
+.hero-wrap{margin:-28px -24px 0;border-radius:14px 14px 0 0;overflow:hidden;line-height:0}
+.hero{width:100%;height:auto;display:block}
+.peek{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 12px;font-size:14px;color:var(--ink-soft);margin-top:-6px}
+.peek .linkbtn{color:var(--amber);font-weight:700}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#rings[hidden]{display:none}
+.meta{font-size:13px;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 14px}
+
+/* question */
+.progress{display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:6px;background:var(--leaf);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--moss);border-radius:99px;transition:width .25s ease}
+.qnum{font-family:var(--mono);font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.scene{font-size:13px;color:var(--amber);font-weight:700;letter-spacing:.06em}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{appearance:none;text-align:left;font:inherit;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;min-height:52px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;line-height:1.55}
+.opt:hover{border-color:var(--moss)}
+.opt[aria-pressed="true"]{border-color:var(--moss);background:var(--leaf)}
+.opt .k{font-family:var(--mono);font-size:13px;color:var(--moss);padding-top:2px;flex:none;width:16px}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.linkbtn{appearance:none;background:none;border:0;font:inherit;color:var(--ink-soft);cursor:pointer;padding:10px 4px;min-height:44px}
+.linkbtn:disabled{opacity:.35;cursor:default}
+
+/* result card */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.card figure{margin:0;position:relative}
+.card figure img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.credit{position:absolute;right:10px;bottom:10px;font-size:11px;background:rgba(251,252,248,.88);color:#3d4a43;padding:2px 8px;border-radius:99px}
+.card-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:16px}
+.rname{font-size:clamp(32px,9vw,42px);color:var(--moss-deep)}
+.quip{font-family:var(--display);font-size:19px;color:var(--ink);line-height:1.5}
+.trait{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:4px 12px;border-top:1px dashed var(--line);padding-top:14px}
+.trait dt{font-size:13px;font-weight:700;color:var(--amber);padding-top:3px}
+.trait dd{margin:0 0 8px}
+.record{background:var(--leaf);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.record .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--moss)}
+.record .place{font-weight:700;font-size:17px}
+.record .note{font-size:14px;color:var(--ink-soft)}
+.pair{display:flex;align-items:center;gap:12px;font-size:14px}
+.pair img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none}
+.cta{background:var(--amber-soft);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.cta strong{font-family:var(--display);font-size:18px}
+.toast{font-size:13px;color:var(--moss);min-height:1.2em}
+.others{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.other{display:flex;flex-direction:column;gap:4px;font-size:13px;text-align:center;color:var(--ink-soft)}
+.other img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}
+.foot{font-size:12px;color:var(--ink-soft);text-align:center}
+@media (prefers-reduced-motion: reduce){.bar span{transition:none}}
+</style>
+
+<main class="wrap" id="app" aria-live="polite"></main>
+
+<script>
+(function(){
+  var BOOK_URL = '#'; // TODO: 上市後換成通路購書頁
+  var SHARE_URL = ''; // TODO: 測驗正式網址
+
+  var T = {
+    stick:{name:'竹節蟲',img:'img/001.jpg',quip:'一受驚就裝死，開會時最好不要點我。',
+      mask:'遇到突發狀況，你的第一反應是先不動。不是膽小，是你知道很多事等一下就會過去。',
+      shine:'你很少出錯，因為你從不搶快。場面越亂，你往往是最穩的那一個。',
+      tip:'偶爾動一下也沒關係，世界比你想像的友善。',
+      place:'屏東墾丁社頂公園',note:'寒流讓北部的昆蟲躲起來時，社頂公園的保育類「津田氏大頭竹節蟲」依然藏在葉子上，受驚時還會噴出防禦液。',page:'p.90–91',pair:'beetle',pairWhy:'他負責衝，你負責穩。'},
+    toad:{name:'枯葉角蟾',img:'img/002.jpg',quip:'選好位置就不動如山，假日的最高境界是躺平。',
+      mask:'你不急著表現，習慣先找個舒服的位置，把力氣留給真正重要的事。',
+      shine:'別人以為你在放空，其實你一直在等最好的時機。一出手，往往就是關鍵。',
+      tip:'等待很好，但別讓「再等等」變成習慣。',
+      place:'婆羅洲神山國家公園（夢想清單）',note:'牠選定地點後，就長時間不動如山，除非看到獵物出現。手電筒掃過落葉堆時，你真的看不見牠。',page:'p.180–183',pair:'frog',pairWhy:'一個等時機，一個專挑別人退場時上場。'},
+    gecko:{name:'撒旦葉尾守宮',img:'img/003.jpg',quip:'社交場合的隱身大師，別人以為你是一片葉子。',
+      mask:'人多的時候你習慣退到背景，安靜得像一片掛在樹枝上的枯葉。',
+      shine:'但你的眼睛一直在工作。誰在逞強、誰需要幫忙，你往往第一個發現。',
+      tip:'你看見的東西很珍貴，偶爾說出來，會有人因此被接住。',
+      place:'馬達加斯加拉努馬法納國家公園（夢想清單）',note:'阿傑形容牠的眼睛像《魔戒》裡的索倫之眼。嚮導指著的明明是一片枯葉，湊近才發現，那片葉子長著一雙眼睛。',page:'p.196–199',pair:'indri',pairWhy:'你看見，他說出口。'},
+    frog:{name:'臺北樹蛙',img:'img/004.jpg',quip:'天氣越冷越有精神，冬天才是我的主場。',
+      mask:'別人退場的時候，你反而上場。你不太跟著大家的節奏走。',
+      shine:'逆風、淡季、沒人想接的案子，常常是你發光的地方。',
+      tip:'不用每次都逆著走，順風的時候也可以好好享受。',
+      place:'臺北富陽自然生態公園',note:'以臺北為名的保育類動物，富陽公園冬季限定的明星物種。捷運坐到底就能去找牠。',page:'p.4–7',pair:'toad',pairWhy:'他陪你等，你帶他出門。'},
+    beetle:{name:'獨角仙',img:'img/005.jpg',quip:'看到對手就想角力，週末行程永遠滿檔。',
+      mask:'你用行動力保護自己。只要一直往前，就不必停下來想太多。',
+      shine:'你是團體裡的引擎，有你在，事情就會動起來。',
+      tip:'試試看把一天留白。森林裡最精彩的，常常要停下來才看得到。',
+      place:'桃園羊稠坑森林步道',note:'每年六月中旬雄蟲率先出現，六月底進入交配高峰，光蠟樹上的雄獨角仙會用長角把對手整隻抬起來。',page:'p.10–15',pair:'stick',pairWhy:'你衝第一，他幫你看清楚哪裡不能踩。'},
+    indri:{name:'大狐猴',img:'img/006.jpg',quip:'平常安靜，一開口就讓人感動到落淚。',
+      mask:'你不愛搶話，在人群裡常是安靜的那一個。',
+      shine:'但你一開口，總能說中別人心裡的話。你在乎的是關係，不是場面。',
+      tip:'照顧別人之前，也記得問問自己累不累。',
+      place:'馬達加斯加安達西貝－曼塔迪亞國家公園（夢想清單）',note:'阿傑在這裡錄下大狐猴的歌聲，當下眼淚止不住，至今一個人開車時還會拿出來播。',page:'p.202–203',pair:'gecko',pairWhy:'他把你說的話，記得最久。'}
+  };
+  var ORDER=['stick','toad','gecko','frog','beetle','indri'];
+
+  var Q = [
+    {q:'開會討論新企劃，主管問大家的意見。你其實覺得這個方向有問題，但看起來大家都滿贊成的。你會：',o:[
+      ['先不說，會後再找主管私下聊','toad'],
+      ['算了，大家都同意，應該也還好','stick'],
+      ['先看看有沒有人跟我一樣有疑慮','gecko'],
+      ['直接講出來，有問題就該提','beetle']]},
+    {q:'難得連放四天，朋友約你去一個很紅的景點。你知道那幾天一定人擠人。你會：',o:[
+      ['去啊，早點出發、行程排好就好','beetle'],
+      ['婉拒，連假就是要待在家充電','toad'],
+      ['提議改去一個比較少人知道的地方','frog'],
+      ['跟這群朋友在一起，去哪都可以','indri']]},
+    {q:'朋友聚餐，有人開了個玩笑，你覺得有點過頭，旁邊有個人的表情明顯不太對。你會：',o:[
+      ['跟著大家笑一下，假裝沒注意到','stick'],
+      ['直接說：「欸，這個有點過分喔。」','beetle'],
+      ['笑著把話題帶開，讓他不用尷尬','indri'],
+      ['先不動聲色，之後再私下問他還好嗎','gecko']]},
+    {q:'期待很久的爬山行程，出發前一天氣象說會變冷，山上可能下雨。群組裡有人想改期，有人說照走。你會：',o:[
+      ['照走吧，下雨的山也很好看','frog'],
+      ['改期好了，不想淋雨，也不想冒險','toad'],
+      ['雨具和備案都準備好，兩種狀況都能應付','beetle'],
+      ['看大部分人怎麼決定，我配合','stick']]},
+    {q:'你手上已經有三件事在趕，下班前主管又丟來一件急件，說明天早上要。你會：',o:[
+      ['先答應，晚上再想辦法擠時間','stick'],
+      ['判斷哪件可以等，先把最要緊的做完','toad'],
+      ['有點興奮，又可以挑戰一下極限','frog'],
+      ['跟主管說清楚現在的狀況，請他幫忙排先後','indri']]},
+    {q:'跟朋友走步道，走在最前面的人突然停下來，小聲說前面有蛇。大家都轉頭看你。你會：',o:[
+      ['腦袋一片空白，站著不敢動','stick'],
+      ['保持距離，但很想看清楚是哪一種','beetle'],
+      ['先往後退，看牠往哪個方向走','gecko'],
+      ['先把大家往後帶，確認每個人都站穩','indri']]},
+    {q:'到新公司第一週，你發現團隊裡好像有兩派人馬，午餐都分開吃。這時有人約你一起吃飯。你會：',o:[
+      ['先吃幾次看看，搞清楚狀況再說','gecko'],
+      ['找個理由自己吃，不想太快選邊站','stick'],
+      ['兩邊都去，我想跟每個人都熟','beetle'],
+      ['跟聊得來的人吃就好','indri']]},
+    {q:'出國旅行，一早出門就碰上電車誤點。好不容易到了，排了很久想去的地方竟然臨時休館。你會：',o:[
+      ['找間咖啡店坐下來，今天就慢慢過','toad'],
+      ['也許是天意，隨便走走看會遇到什麼','frog'],
+      ['馬上查附近還有什麼，把時間補回來','beetle'],
+      ['看看當地人往哪走，跟著去','gecko']]},
+    {q:'很久沒聯絡的朋友半夜傳訊息：「最近好累，不知道該怎麼辦。」你隔天一早還要上班。你會：',o:[
+      ['還是回他，問他要不要現在講電話','indri'],
+      ['約他這個週末出去走走，換個環境聊','frog'],
+      ['不知道怎麼回比較好，先傳個抱抱的貼圖','stick'],
+      ['先問他是工作還是感情的事，再看怎麼幫','gecko']]},
+    {q:'朋友群組在討論年底要去哪玩，講了一個禮拜還沒結論，大家好像都在等別人決定。你會：',o:[
+      ['等大家講得差不多，再丟一個折衷方案','toad'],
+      ['丟一個沒人想過的地方，讓討論熱起來','frog'],
+      ['繼續潛水，最後決定什麼我都去','stick'],
+      ['私訊幾個人，問他們真正想去哪','indri']]},
+    {q:'到了一個很紅的景點，排隊要一個小時。旁邊有條沒什麼人走的小路，不知道通到哪裡。你會：',o:[
+      ['先去旁邊休息，晚點人少再來','toad'],
+      ['走小路看看，搞不好有驚喜','frog'],
+      ['先看看從小路回來的人表情怎麼樣','gecko'],
+      ['都來了，排就排，一定要看到','beetle']]},
+    {q:'如果有一整天的空檔，可以自己去，或跟一個人去森林裡走走，你會怎麼安排？',o:[
+      ['約一個想好好聊聊的人，邊走邊說','indri'],
+      ['挑寒流剛過的早上，人最少的時候出發','frog'],
+      ['晚上去，帶著手電筒找躲起來的動物','gecko'],
+      ['找一棵大樹坐下來，一整個下午都不動','toad']]}
+  ];
+
+  var app=document.getElementById('app');
+  var order=[], answers=[], cur=0;
+
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  // ---- forest hero: procedural canopy with four hidden creatures ----
+  function heroSVG(){
+    var seed=20261123; function rnd(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646;}
+    var NS='http://www.w3.org/2000/svg';
+    var greens=['#1F4234','#2F5D46','#3E7A55','#4F8F5E','#6FA86A','#8CBF73','#A9CF86'];
+    function leaf(x,y,L,W,rot,fill,vein){
+      var d='M0,0 C'+(L*.3)+','+(-W)+' '+(L*.72)+','+(-W*.9)+' '+L+',0 C'+(L*.72)+','+(W*.9)+' '+(L*.3)+','+W+' 0,0Z';
+      return '<g transform="translate('+x.toFixed(1)+','+y.toFixed(1)+') rotate('+rot.toFixed(1)+')"><path d="'+d+'" fill="'+fill+'"/>'+
+        (vein?'<path d="M2,0 L'+(L*.92).toFixed(1)+',0" stroke="'+vein+'" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>':'')+'</g>';
+    }
+    var back='',front='';
+    for(var i=0;i<70;i++){ // back canopy, darker
+      back+=leaf(rnd()*640-20,rnd()*440-10,40+rnd()*60,12+rnd()*14,rnd()*360,greens[Math.floor(rnd()*3)],null);
+    }
+    for(var j=0;j<55;j++){ // mid leaves with veins
+      var x=rnd()*640-20,y=rnd()*440-10;
+      if(x>110&&x<490&&y>150&&y<300) continue; // keep the title clearing open
+      front+=leaf(x,y,34+rnd()*46,10+rnd()*12,rnd()*360,greens[2+Math.floor(rnd()*5)],'#1F4234');
+    }
+    // creatures (each in its own group, drawn between back and front so leaves overlap them a little)
+    var stick='<g id="c-stick">'+
+      '<path d="M8,104 C80,92 160,74 250,58" stroke="#6B4E33" stroke-width="5" fill="none" stroke-linecap="round"/>'+
+      '<path d="M70,90 L160,73" stroke="#9AA65A" stroke-width="3.4" stroke-linecap="round"/>'+
+      '<path d="M160,73 l14,-4 M160,73 l13,1" stroke="#9AA65A" stroke-width="1.4" stroke-linecap="round"/>'+
+      '<path d="M90,86 l-6,-14 M90,86 l4,12 M115,81 l-4,-15 M115,81 l6,12 M138,77 l-2,-15 M138,77 l8,11" stroke="#9AA65A" stroke-width="1.5" stroke-linecap="round" fill="none"/>'+
+    '</g>';
+    var frog='<g id="c-frog" transform="translate(500,96)">'+
+      '<ellipse cx="0" cy="8" rx="30" ry="15" fill="#8CBF73"/>'+
+      '<ellipse cx="-14" cy="-4" rx="9" ry="8" fill="#8CBF73"/><ellipse cx="10" cy="-4" rx="9" ry="8" fill="#8CBF73"/>'+
+      '<circle cx="-14" cy="-5" r="5" fill="#E9C46A"/><circle cx="10" cy="-5" r="5" fill="#E9C46A"/>'+
+      '<ellipse cx="-14" cy="-5" rx="3.6" ry="1.6" fill="#1E2B24"/><ellipse cx="10" cy="-5" rx="3.6" ry="1.6" fill="#1E2B24"/>'+
+      '<path d="M-20,10 Q0,16 18,10" stroke="#5E8F4E" stroke-width="1.2" fill="none"/>'+
+    '</g>';
+    var gecko='<g id="c-gecko" transform="translate(96,352) rotate(-18)">'+
+      '<path d="M-40,4 C-20,-14 20,-14 40,-2 C46,4 30,14 10,12 C-10,16 -30,14 -40,4Z" fill="#8C7A62"/>'+
+      '<path d="M-36,4 C-18,-6 18,-6 36,0" stroke="#6E5E49" stroke-width="1.2" fill="none"/>'+
+      '<circle cx="28" cy="-1" r="5.2" fill="#D9A35B"/><ellipse cx="28" cy="-1" rx="1.1" ry="4.2" fill="#1E2B24"/>'+
+      '<path d="M24,-6 l3,-5 l3,5" fill="#8C7A62"/>'+
+    '</g>';
+    var beetle='<g id="c-beetle" transform="translate(488,350) rotate(28)">'+
+      '<path d="M-10,-12 l-7,-6 M10,-12 l7,-6 M-12,0 l-10,0 M12,0 l10,0 M-10,12 l-8,7 M10,12 l8,7" stroke="#3B1F14" stroke-width="2" stroke-linecap="round"/>'+
+      '<ellipse cx="0" cy="4" rx="13" ry="17" fill="#6B2E1F"/>'+
+      '<path d="M0,-12 L0,22" stroke="#4A1F14" stroke-width="1.2"/>'+
+      '<ellipse cx="0" cy="-15" rx="9" ry="7" fill="#4A1F14"/>'+
+      '<path d="M0,-20 C-2,-30 2,-36 -3,-44 M-3,-44 l-5,-3 M-3,-44 l3,-6" stroke="#4A1F14" stroke-width="3" stroke-linecap="round" fill="none"/>'+
+    '</g>';
+    var rings='<g id="rings" fill="none" stroke="#F2C46D" stroke-width="3" stroke-dasharray="6 5" hidden>'+
+      '<ellipse cx="118" cy="82" rx="70" ry="26" transform="rotate(-10 118 82)"/><circle cx="498" cy="94" r="40"/><circle cx="100" cy="350" r="48"/><circle cx="486" cy="345" r="42"/></g>';
+    var title='<g>'+
+      '<path d="M120,176 C160,146 440,140 482,170 C510,196 506,262 478,284 C430,312 172,314 124,288 C96,266 94,200 120,176Z" fill="#FBFCF8" opacity=".94"/>'+
+      '<text x="300" y="196" text-anchor="middle" font-family="LXGW WenKai TC, Noto Sans TC, sans-serif" font-size="22" fill="#A8641A">你是哪一種</text>'+
+      '<text x="300" y="262" text-anchor="middle" font-family="LXGW WenKai TC, Noto Sans TC, sans-serif" font-size="56" font-weight="700" fill="#1F4234" letter-spacing="2">'+
+        ['森','林','偽','裝','高','手'].map(function(c,k){var r=[-5,3,-2,4,-4,2][k],dy=[0,-3,2,-2,3,-1][k];return '<tspan rotate="'+r+'" dy="'+dy+'">'+c+'</tspan>';}).join('')+
+      '</text>'+
+      '<text x="300" y="290" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="3" fill="#4E5E55">FIELD QUIZ · 12 QUESTIONS</text>'+
+    '</g>';
+    return '<svg class="hero" viewBox="0 0 600 420" role="img" aria-label="茂密的樹葉裡躲著竹節蟲、臺北樹蛙、葉尾守宮和獨角仙，中間寫著：你是哪一種森林偽裝高手">'+
+      '<rect width="600" height="420" fill="#16362A"/>'+back+stick+frog+gecko+beetle+front+rings+title+'</svg>';
+  }
+
+  function intro(){
+    app.innerHTML=
+      '<section class="page">'+
+        '<div class="hero-wrap">'+heroSVG()+'</div>'+
+        '<div class="peek"><span>畫面裡躲了 4 隻生物，你找得到嗎？</span><button class="linkbtn" id="peek" type="button" aria-pressed="false">偷看答案</button></div>'+
+        '<p class="eyebrow">熱血阿傑的自然生態日記簿・趣味測驗</p>'+
+        '<h1 class="sr">你是哪一種森林偽裝高手？</h1>'+
+        '<p class="lead">每個人都有一套在人群裡保護自己的方式。回答 12 個生活裡的小情境，找出你的本命偽裝生物，還可以知道要去哪裡找到牠！</p>'+
+        '<div class="meta"><span>12 道趣味問題，請憑直覺選出最接近你的想法的答案喔！</span></div>'+
+        '<div class="row"><button class="btn btn-primary" id="start" type="button">開始測驗</button></div>'+
+      '</section>'+
+      '<p class="foot">《熱血阿傑的自然生態日記簿》2026/11/23 上市｜散冊出版</p>';
+    document.getElementById('start').onclick=start;
+    var pk=document.getElementById('peek');
+    pk.onclick=function(){var r=app.querySelector('#rings');var on=r.hasAttribute('hidden');if(on){r.removeAttribute('hidden');}else{r.setAttribute('hidden','');}pk.setAttribute('aria-pressed',on?'true':'false');pk.textContent=on?'收起答案':'偷看答案';};
+  }
+
+  function start(){
+    order=Q.map(function(q){return shuffle(q.o.slice());});
+    answers=new Array(Q.length); cur=0; question();
+  }
+
+  function question(){
+    var q=Q[cur], opts=order[cur], keys='ABCD';
+    app.innerHTML=
+      '<section class="page">'+
+        '<div class="progress"><span class="qnum">Q'+String(cur+1).padStart(2,'0')+' / '+Q.length+'</span><div class="bar"><span style="width:'+((cur)/Q.length*100)+'%"></span></div></div>'+
+        '<h2 id="qt">'+esc(q.q)+'</h2>'+
+        '<div class="opts" role="group" aria-labelledby="qt">'+
+          opts.map(function(o,i){return '<button class="opt" type="button" id="opt'+i+'" data-i="'+i+'" aria-pressed="'+(answers[cur]===o[1]+'|'+i?'true':'false')+'"><span class="k">'+keys[i]+'</span><span>'+esc(o[0])+'</span></button>';}).join('')+
+        '</div>'+
+        '<div class="nav"><button class="linkbtn" id="prev" type="button"'+(cur===0?' disabled':'')+'>← 上一題</button><span class="qnum">'+(cur+1===Q.length?'最後一題':'')+'</span></div>'+
+      '</section>';
+    Array.prototype.forEach.call(app.querySelectorAll('.opt'),function(b){
+      b.onclick=function(){
+        var i=+b.getAttribute('data-i'); answers[cur]=opts[i][1]+'|'+i;
+        Array.prototype.forEach.call(app.querySelectorAll('.opt'),function(x){x.setAttribute('aria-pressed','false');});
+        b.setAttribute('aria-pressed','true');
+        setTimeout(function(){ if(cur<Q.length-1){cur++;question();} else result(); },180);
+      };
+    });
+    document.getElementById('prev').onclick=function(){ if(cur>0){cur--;question();} };
+    var first=app.querySelector('.opt'); if(first) first.focus({preventScroll:true});
+  }
+
+  function score(){
+    var c={}, last={};
+    answers.forEach(function(a,qi){var k=a.split('|')[0]; c[k]=(c[k]||0)+1; last[k]=qi;});
+    var best=null;
+    ORDER.forEach(function(k){ if(!c[k]) return;
+      if(!best || c[k]>c[best] || (c[k]===c[best] && last[k]>last[best])) best=k; });
+    return best;
+  }
+
+  function result(){
+    var k=score(), t=T[k], p=T[t.pair];
+    var shareText='我測出來是「'+t.name+'」：'+t.quip+' 你是哪一種森林偽裝高手？';
+    app.innerHTML=
+      '<article class="card">'+
+        '<figure><img src="'+t.img+'" alt="'+esc(t.name)+'"><figcaption class="credit">攝影｜黃仕傑</figcaption></figure>'+
+        '<div class="card-body">'+
+          '<p class="eyebrow">你的本命偽裝生物</p>'+
+          '<h2 class="rname">'+esc(t.name)+'</h2>'+
+          '<p class="quip">'+esc(t.quip)+'</p>'+
+          '<dl class="trait">'+
+            '<dt>你的偽裝術</dt><dd>'+esc(t.mask)+'</dd>'+
+            '<dt>被看見的時刻</dt><dd>'+esc(t.shine)+'</dd>'+
+            '<dt>森林給你的話</dt><dd>'+esc(t.tip)+'</dd>'+
+          '</dl>'+
+          '<div class="record">'+
+            '<span class="tag">本命走讀點・書中 '+esc(t.page)+'</span>'+
+            '<span class="place">'+esc(t.place)+'</span>'+
+            '<span class="note">'+esc(t.note)+'</span>'+
+          '</div>'+
+          '<div class="pair"><img src="'+p.img+'" alt=""><span>最合拍的夥伴：<b>'+esc(p.name)+'</b>。'+esc(t.pairWhy)+'</span></div>'+
+          '<div class="cta">'+
+            '<strong>你身邊那個人，是哪一種？</strong>'+
+            '<span>傳給同事、朋友或另一半，看看你們是不是最合拍的那一對。</span>'+
+            '<div class="row">'+
+              '<button class="btn btn-primary" id="share" type="button">把測驗傳給那個你想到的人</button>'+
+              '<button class="btn btn-ghost" id="again" type="button">再測一次</button>'+
+            '</div>'+
+            '<p class="toast" id="toast" role="status"></p>'+
+          '</div>'+
+          '<div class="record">'+
+            '<span class="tag">熱血阿傑的自然生態日記簿・2026/11/23 上市</span>'+
+            '<span>書裡有 41 個台灣走讀點，還有更多偽裝高手，等你親自去找。</span>'+
+            '<div class="row"><a class="btn btn-ghost" href="'+BOOK_URL+'" target="_blank" rel="noopener">看看這本書</a></div>'+
+          '</div>'+
+        '</div>'+
+      '</article>'+
+      '<p class="foot">《熱血阿傑的自然生態日記簿》2026/11/23 上市｜散冊出版</p>';
+    document.getElementById('again').onclick=function(){intro();window.scrollTo(0,0);};
+    document.getElementById('share').onclick=function(){
+      var text=shareText+(SHARE_URL?' '+SHARE_URL:'');
+      var toast=document.getElementById('toast');
+      try{
+        navigator.clipboard.writeText(text).then(function(){toast.textContent='已複製分享文字，貼給他吧。';},function(){toast.textContent=text;});
+      }catch(e){toast.textContent=text;}
+    };
+    window.scrollTo(0,0);
+  }
+
+  intro();
+})();
+</script>
+
+</body></html>
