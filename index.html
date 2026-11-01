@@ -101,7 +101,7 @@ p{margin:0}
 <script>
 (function(){
   var BOOK_URL = '#'; // TODO: 上市後換成通路購書頁
-  var SHARE_URL = ''; // TODO: 測驗正式網址
+  var SHARE_URL = 'https://lingshu1019.github.io/forest-quiz/';
 
   var T = {
     stick:{name:'竹節蟲',img:'img/001.jpg',quip:'一受驚就裝死，開會時最好不要點我。',
@@ -123,7 +123,7 @@ p{margin:0}
       mask:'別人退場的時候，你反而上場。你不太跟著大家的節奏走。',
       shine:'逆風、淡季、沒人想接的案子，常常是你發光的地方。',
       tip:'不用每次都逆著走，順風的時候也可以好好享受。',
-      place:'臺北富陽自然生態公園',note:'以臺北為名的保育類動物，富陽公園冬季限定的明星物種。捷運坐到底就能去找牠。',page:'p.4–7',pair:'toad',pairWhy:'他陪你等，你帶他出門。'},
+      place:'臺北富陽自然生態公園',note:'以臺北為名的保育類動物，富陽公園冬季限定的明星物種。捷運坐到底就能去找牠。',page:'p.4–7',pair:'toad',pairWhy:'他陪你等待時機，你讓他知道冬天也能很熱鬧。'},
     beetle:{name:'獨角仙',img:'img/005.jpg',quip:'看到對手就想角力，週末行程永遠滿檔。',
       mask:'你用行動力保護自己。只要一直往前，就不必停下來想太多。',
       shine:'你是團體裡的引擎，有你在，事情就會動起來。',
@@ -322,7 +322,7 @@ p{margin:0}
 
   function result(){
     var k=score(), t=T[k], p=T[t.pair];
-    var shareText='我測出來是「'+t.name+'」：'+t.quip+' 你是哪一種森林偽裝高手？';
+    var shareText='我測出來是「'+t.name+'」。\n被看見的時刻：'+t.shine.replace(/^但/,'')+'\n你是哪一種森林偽裝高手？';
     app.innerHTML=
       '<article class="card">'+
         '<figure><img src="'+t.img+'" alt="'+esc(t.name)+'"><figcaption class="credit">攝影｜黃仕傑</figcaption></figure>'+
@@ -348,11 +348,11 @@ p{margin:0}
               '<button class="btn btn-primary" id="share" type="button">把測驗傳給那個你想到的人</button>'+
               '<button class="btn btn-ghost" id="again" type="button">再測一次</button>'+
             '</div>'+
-            '<p class="toast" id="toast" role="status"></p>'+
+            '<p class="toast" id="toast" role="status" style="white-space:pre-line"></p>'+
           '</div>'+
           '<div class="record">'+
             '<span class="tag">熱血阿傑的自然生態日記簿・2026/11/23 上市</span>'+
-            '<span>書裡有 41 個台灣走讀點，還有更多偽裝高手，等你親自去找。</span>'+
+            '<span>書裡有 43 個台灣走讀點，還有更多偽裝高手，等你親自去找。</span>'+
             '<div class="row"><a class="btn btn-ghost" href="'+BOOK_URL+'" target="_blank" rel="noopener">看看這本書</a></div>'+
           '</div>'+
         '</div>'+
@@ -360,10 +360,10 @@ p{margin:0}
       '<p class="foot">《熱血阿傑的自然生態日記簿》2026/11/23 上市｜散冊出版</p>';
     document.getElementById('again').onclick=function(){intro();window.scrollTo(0,0);};
     document.getElementById('share').onclick=function(){
-      var text=shareText+(SHARE_URL?' '+SHARE_URL:'');
+      var text=shareText+(SHARE_URL?'\n'+SHARE_URL:'');
       var toast=document.getElementById('toast');
       try{
-        navigator.clipboard.writeText(text).then(function(){toast.textContent='已複製分享文字，貼給他吧。';},function(){toast.textContent=text;});
+        navigator.clipboard.writeText(text).then(function(){toast.textContent='已複製分享文字和測驗網址，貼給他吧。';},function(){toast.textContent=text;});
       }catch(e){toast.textContent=text;}
     };
     window.scrollTo(0,0);
