@@ -101,7 +101,7 @@ p{margin:0}
 
 <script>
 (function(){
-  var BOOK_URL = '#'; // TODO: 上市後換成通路購書頁
+  var BOOK_URL = 'https://www.books.com.tw/products/0011068381'; // 博客來購書頁
   var SHARE_URL = 'https://lingshu1019.github.io/forest-quiz/';
 
   var T = {
@@ -278,7 +278,7 @@ p{margin:0}
         '<div class="meta"><span>12 道趣味問題，請憑直覺選出最接近你的想法的答案喔！</span></div>'+
         '<div class="row"><button class="btn btn-primary" id="start" type="button">開始測驗</button></div>'+
       '</section>'+
-      '<p class="foot">《熱血阿傑的自然生態日記簿》2026/11/23 上市｜散冊出版</p>';
+      '<p class="foot">《熱血阿傑的自然生態日記簿》2026/11/26 上市｜散冊出版</p>';
     document.getElementById('start').onclick=start;
     var pk=document.getElementById('peek');
     pk.onclick=function(){var r=app.querySelector('#rings');var on=r.hasAttribute('hidden');if(on){r.removeAttribute('hidden');}else{r.setAttribute('hidden','');}pk.setAttribute('aria-pressed',on?'true':'false');pk.textContent=on?'收起答案':'偷看答案';};
@@ -352,13 +352,13 @@ p{margin:0}
             '<p class="toast" id="toast" role="status" style="white-space:pre-line"></p>'+
           '</div>'+
           '<div class="record">'+
-            '<span class="tag">熱血阿傑的自然生態日記簿・2026/11/23 上市</span>'+
+            '<span class="tag">熱血阿傑的自然生態日記簿・2026/11/26 上市</span>'+
             '<span>書裡有 43 個台灣走讀點，還有更多偽裝高手，等你親自去找。</span>'+
             '<div class="row"><a class="btn btn-ghost" href="'+BOOK_URL+'" target="_blank" rel="noopener">看看這本書</a></div>'+
           '</div>'+
         '</div>'+
       '</article>'+
-      '<p class="foot">《熱血阿傑的自然生態日記簿》2026/11/23 上市｜散冊出版</p>';
+      '<p class="foot">《熱血阿傑的自然生態日記簿》2026/11/26 上市｜散冊出版</p>';
     document.getElementById('again').onclick=function(){intro();window.scrollTo(0,0);};
     document.getElementById('share').onclick=function(){
       var text=shareText+(SHARE_URL?'\n'+SHARE_URL:'');
