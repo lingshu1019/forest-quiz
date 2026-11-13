@@ -89,6 +89,15 @@ p{margin:0}
 .pair img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none}
 .cta{background:var(--amber-soft);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
 .cta strong{font-family:var(--display);font-size:18px}
+.book{border:1.5px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.book .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--moss)}
+.book strong{font-family:var(--display);font-size:19px;line-height:1.4}
+.book p{margin:0;font-size:15px;line-height:1.75;text-wrap:pretty}
+.gift{position:relative;width:100%;box-sizing:border-box;background:var(--amber-soft);border:1.5px dashed var(--amber);border-radius:10px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:4px}
+.gift-k{align-self:flex-start;background:var(--amber);color:var(--paper);font-size:12px;font-weight:700;letter-spacing:.08em;padding:2px 10px;border-radius:999px}
+.gift b{font-family:var(--display);font-size:17px}
+.gift-spec{font-size:13px;color:var(--ink-soft)}
+.gift p{font-size:14px;margin-top:2px}
 .toast{font-size:13px;color:var(--moss);min-height:1.2em}
 .others{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .other{display:flex;flex-direction:column;gap:4px;font-size:13px;text-align:center;color:var(--ink-soft)}
@@ -351,10 +360,17 @@ p{margin:0}
             '</div>'+
             '<p class="toast" id="toast" role="status" style="white-space:pre-line"></p>'+
           '</div>'+
-          '<div class="record">'+
+          '<div class="book">'+
             '<span class="tag">熱血阿傑的自然生態日記簿・2026/11/26 上市</span>'+
-            '<span>書裡有 43 個台灣走讀點，還有更多偽裝高手，等你親自去找。</span>'+
-            '<div class="row"><a class="btn btn-ghost" href="'+BOOK_URL+'" target="_blank" rel="noopener">看看這本書</a></div>'+
+            '<strong>你的本命生物，就住在這本書裡！</strong>'+
+            '<p>跟著熱血阿傑，從家門口的步道一路走進婆羅洲、馬達加斯加的雨林。書裡有 43 個臺灣親子走讀點，交通、門票、看點都幫你整理好；再飛到海外 6 國，找蘭花螳螂、苔蘚葉尾守宮，聞聞大王花的味道。翻開書，就像跟著阿傑打著手電筒去夜觀。</p>'+
+            '<div class="gift">'+
+              '<span class="gift-k">首刷限量加贈</span>'+
+              '<b>《2027 我的自然觀察誌》</b>'+
+              '<span class="gift-spec">A5 全彩 32 頁｜附 2027 年曆</span>'+
+              '<p>每個月，傑哥都幫你挑好一位當月主角和出門去處。把看到的、拍到的都收進月曆，一年過完，就是全家獨一無二的自然圖鑑。</p>'+
+            '</div>'+
+            '<div class="row"><a class="btn btn-primary" href="'+BOOK_URL+'" target="_blank" rel="noopener">去博客來看看這本書</a></div>'+
           '</div>'+
         '</div>'+
       '</article>'+
